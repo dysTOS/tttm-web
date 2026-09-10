@@ -1,0 +1,24 @@
+.hero-image{background-image:url('assets/artists/studio-skull-logo.jpg');background-position:center;background-size:contain;background-repeat:no-repeat;background-color:#000;filter:none;border:5px solid var(--ink);box-shadow:12px 12px 0 var(--red)}
+.sunburst{display:none}
+:root{--paper:#15110f;--ink:#eadcc8;--red:#8f1118;--yellow:#a98d5b;--muted:#b6a996;--border:#4b4038}
+body{font-size:17px}.hero-intro{font-size:1.06rem}.large-copy{font-size:clamp(1.3rem,2vw,1.9rem)}.artists-intro{font-size:1.04rem}.artist-card p:not(.artist-number){font-size:.9rem}.info-grid p{font-size:1rem}.contact-details{font-size:.78rem}.text-link{font-size:.87rem}.site-footer{font-size:.75rem}
+.hero-intro{color:var(--ink)}.contact-lede{max-width:420px;line-height:1.5;margin:-.8rem 0 2rem;font-size:1.04rem}.contact-section .eyebrow{color:var(--ink)}.contact-section h2 em{color:#080706}
+.contact-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem}.phone-cta{font:.75rem var(--mono);text-transform:uppercase;border-bottom:2px solid #080706;padding:.65rem 0}.phone-cta span{margin-left:.35rem}
+.site-header{background:#080706;color:var(--ink);border-bottom-color:#332720}.brand-dot{color:var(--red)}.nav-cta{border-color:var(--ink)}
+.button,.nav-cta{border-radius:0}.button{box-shadow:4px 4px 0 #050404}.button-dark{background:var(--red);color:var(--ink)}.button-red{background:#080706;color:var(--ink);box-shadow:4px 4px 0 #050404}
+.hero-sticker{display:none}.hero-art{margin-left:8%}.hero-caption{background:var(--paper);padding:.45rem .55rem;color:var(--ink)}
+.marquee{background:#080706;color:var(--ink);border-top:3px solid var(--red);border-bottom:3px solid var(--red)}
+.work-section{background:#080706;color:var(--ink)}.contact-section{background:var(--red);color:var(--ink)}.contact-stamp{border-color:var(--ink)}.contact-stamp span{color:var(--yellow)}.site-footer{background:#080706;color:var(--muted)}
+.gallery{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,240px);grid-auto-rows:240px}.card-small{grid-column:3}
+@media(max-width:950px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:250px}.card-tall{grid-row:span 1}.card-wide,.card-small{grid-column:auto;grid-row:auto}.card-small{display:block}}
+.artists-section{padding-top:8rem;padding-bottom:8rem;border-top:1px solid var(--border)}
+.artists-section .section-heading{align-items:start}.artists-section .section-heading h2{font-size:clamp(3.8rem,7vw,7.2rem)}
+.artists-intro{max-width:300px;margin:4.2rem 0 0;line-height:1.5;color:var(--muted)}
+.artist-list{display:grid;grid-template-columns:repeat(4,1fr);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.artist-card{padding:1.25rem 1.25rem 2rem 0;min-height:350px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between}
+.artist-card:not(:first-child){padding-left:1.25rem}.artist-card:last-child{border-right:0}
+.artist-card img{width:90px;height:90px;border-radius:0;object-fit:cover;filter:grayscale(1);border:3px solid var(--ink)}
+.artist-number{color:var(--muted);margin:2.5rem 0 1rem}.artist-card h3{font:normal clamp(2.3rem,4vw,4.5rem)/.82 var(--display);letter-spacing:-.08em;margin:0}
+.artist-card p:not(.artist-number){font-size:.82rem;color:var(--muted);margin:.9rem 0 1.8rem}.artist-card a{font:.68rem var(--mono);text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:.4rem}.artist-card a span{margin-left:.35rem}
+@media(max-width:950px) and (min-width:701px){.artist-list{grid-template-columns:repeat(2,1fr)}.artist-card:nth-child(2){border-right:0}.artist-card:nth-child(-n+2){border-bottom:1px solid var(--border)}}
+@media(max-width:700px){.artists-section{padding-top:6rem;padding-bottom:6rem}.artists-intro{margin:1.5rem 0 0}.artist-list{display:block;margin-top:3rem}.artist-card,.artist-card:not(:first-child){min-height:0;padding:1.5rem 0;border-right:0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:90px 1fr;gap:1.2rem}.artist-card img{grid-row:span 2}.artist-number{margin:0 0 .7rem}.artist-card p:not(.artist-number){margin:.7rem 0 1rem}}

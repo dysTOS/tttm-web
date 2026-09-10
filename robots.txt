@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tattoostothemax.at/sitemap.xml
