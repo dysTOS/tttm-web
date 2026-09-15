@@ -1,0 +1,5 @@
+const login=document.querySelector('#login-form'),form=document.querySelector('#news-form'),status=document.querySelector('#status');let auth='';
+const message=text=>{status.textContent=text;};
+async function request(path,options={}){return fetch(path,{...options,headers:{'Content-Type':'application/json',Authorization:auth,...options.headers}});}
+login.addEventListener('submit',async event=>{event.preventDefault();const data=new FormData(login);auth=`Basic ${btoa(`${data.get('user')}:${data.get('password')}`)}`;const response=await request('/api/news');if(!response.ok){auth='';message('Anmeldung fehlgeschlagen.');return;}const news=await response.json();['title','text','link','button'].forEach(key=>form.elements[key].value=news[key]||'');login.hidden=true;form.hidden=false;message('Angemeldet.');});
+form.addEventListener('submit',async event=>{event.preventDefault();const data=Object.fromEntries(['title','text','link','button'].map(key=>[key,form.elements[key].value.trim()]));const response=await request('/api/news',{method:'PUT',body:JSON.stringify(data)});message(response.ok?'Veröffentlicht.':(await response.json()).error||'Speichern fehlgeschlagen.');});

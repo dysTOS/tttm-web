@@ -22,3 +22,15 @@ document.querySelectorAll('[data-gallery] .gallery-card').forEach((card) => card
 }));
 document.querySelector('[data-close]')?.addEventListener('click', () => lightbox.close());
 lightbox?.addEventListener('click', (event) => { if (event.target === lightbox) lightbox.close(); });
+
+const newsBox = document.querySelector('[data-news]');
+if (newsBox) document.querySelector('.intro')?.after(newsBox);
+if (newsBox) fetch('/api/news', { cache: 'no-store' }).then(response => response.ok ? response.json() : null).then(news => {
+  if (!news?.title || !news?.text) return;
+  newsBox.querySelector('[data-news-title]').textContent = news.title;
+  newsBox.querySelector('[data-news-text]').textContent = news.text;
+  const link = newsBox.querySelector('[data-news-link]');
+  let safeLink = false; try { safeLink = new URL(news.link).protocol === 'https:'; } catch {}
+  if (safeLink && news.button) { link.href = news.link; link.textContent = news.button; link.hidden = false; link.target = '_blank'; link.rel = 'noreferrer'; }
+  newsBox.hidden = false;
+}).catch(() => {});

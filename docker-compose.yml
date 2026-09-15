@@ -4,3 +4,17 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:32919:80"
+    depends_on:
+      - news-api
+  news-api:
+    build: ./api
+    restart: unless-stopped
+    environment:
+      NEWS_USER: ${NEWS_USER:-studio}
+      NEWS_PASSWORD: ${NEWS_PASSWORD:-studio}
+    volumes:
+      - news-data:/data
+    expose:
+      - "3000"
+volumes:
+  news-data:
