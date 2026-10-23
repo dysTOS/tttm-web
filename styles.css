@@ -266,49 +266,29 @@ button {
 .marquee {
     background: var(--red);
     color: var(--paper);
-    white-space: nowrap;
-    overflow: hidden;
-    padding: .9rem 0;
-    font: normal 1rem var(--display);
+    padding: 1rem clamp(1.25rem, 5vw, 6.5rem);
+    font: normal .95rem var(--display);
     letter-spacing: .06em
-}
-
-.marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee-scroll 25s linear infinite;
-    will-change: transform
 }
 
 .marquee-content {
     display: flex;
-    flex: none;
-    min-width: 100vw;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-around;
-    gap: 2rem;
-    padding-right: 2rem
+    flex-wrap: wrap;
+    column-gap: .75rem;
+    row-gap: .65rem;
 }
 
-.marquee-content span,
-.marquee-content b {
-    flex: none
+.marquee-content span {
+    flex: none;
+    white-space: nowrap
 }
 
-.marquee-content b {
-    font: inherit
-}
-
-@keyframes marquee-scroll {
-    to {
-        transform: translateX(-50%)
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-        animation: none
-    }
+.marquee-content span + span::before {
+    content: "✳";
+    color: var(--yellow);
+    margin-right: .55rem
 }
 
 .split-section {
