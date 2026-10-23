@@ -263,52 +263,48 @@ button {
     flex: 1
 }
 
-.styles-band {
-    background: var(--ink);
+.marquee {
+    background: var(--red);
     color: var(--paper);
-    border-block: 3px solid var(--red);
-    padding: 1.15rem clamp(1.25rem, 5vw, 6.5rem)
+    overflow: hidden;
+    padding: .9rem 0;
+    font: normal 1rem var(--display);
+    letter-spacing: .06em
 }
 
-.styles-band-inner {
-    max-width: 1500px;
-    margin: 0 auto;
+.marquee-track {
     display: flex;
-    align-items: center;
-    gap: 1.25rem
+    width: max-content;
+    animation: marquee-scroll 32s linear infinite;
+    will-change: transform
 }
 
-.styles-band-label {
+.marquee-content {
+    display: flex;
     flex: none;
-    margin: 0;
-    color: var(--yellow);
-    font: 500 .68rem var(--mono);
-    letter-spacing: .12em;
-    text-transform: uppercase
+    align-items: center;
+    gap: clamp(1rem, 2vw, 2rem);
+    padding-right: clamp(1rem, 2vw, 2rem)
 }
 
-.styles-band-list {
-    display: flex;
-    flex: 1;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: .6rem
-}
-
-.styles-band-list span {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.2rem;
-    padding: .35rem .8rem;
-    border: 1px solid rgba(244, 239, 229, .5);
-    border-radius: 999px;
-    color: var(--paper);
-    font: 500 .68rem var(--mono);
-    letter-spacing: .08em;
-    line-height: 1.2;
-    text-transform: uppercase;
+.marquee-content span,
+.marquee-content b {
+    flex: none;
     white-space: nowrap
+}
+
+.marquee-content b {
+    font: inherit
+}
+
+@keyframes marquee-scroll {
+    to { transform: translateX(-50%) }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track { width:100%; animation:none; justify-content:center; }
+    .marquee-content[aria-hidden="true"] { display:none; }
+    .marquee-content { flex-wrap:wrap; justify-content:center; padding:0 clamp(1rem,5vw,6.5rem); }
 }
 
 .split-section {
@@ -735,8 +731,58 @@ button {
     }
 }
 
-@media(max-width:700px) {
-  .styles-band-inner { align-items:flex-start; flex-direction:column; gap:.75rem; }
-  .styles-band-list { justify-content:flex-start; gap:.5rem; }
-  .styles-band-list span { min-height:2rem; padding:.3rem .65rem; font-size:.62rem; }
+/* Small, restrained motion for the studio site. */
+@keyframes soft-rise-in {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+@keyframes soft-logo-in {
+    from { opacity:0; transform:scale(.975); }
+    to { opacity:1; transform:scale(1); }
+}
+
+.hero-copy > * {
+    opacity:0;
+    animation:soft-rise-in .65s cubic-bezier(.2,.7,.25,1) both;
+}
+.hero-copy > *:nth-child(1) { animation-delay:.04s; }
+.hero-copy > *:nth-child(2) { animation-delay:.11s; }
+.hero-copy > *:nth-child(3) { animation-delay:.18s; }
+.hero-copy > *:nth-child(4) { animation-delay:.25s; }
+.hero-art { animation:soft-logo-in .9s ease-out .12s both; }
+
+.button {
+    transition:transform .22s ease, box-shadow .22s ease;
+}
+.button:hover { transform:translateY(-2px); }
+.button:active { transform:translateY(0); }
+
+.site-nav a:not(.nav-cta) {
+    transition:color .18s ease, transform .18s ease;
+}
+.site-nav a:not(.nav-cta):hover { color:var(--red); transform:translateY(-1px); }
+
+.artist-card img {
+    transition:transform .3s ease, filter .3s ease;
+}
+.artist-card:hover img { transform:translateY(-2px); filter:grayscale(.35); }
+
+.portfolio-nav a {
+    transition:background-color .2s ease, color .2s ease, transform .2s ease;
+}
+.portfolio-nav a:hover { transform:translateY(-2px); }
+
+.faq-list summary { transition:color .18s ease; }
+.faq-list summary:hover { color:var(--red); }
+.faq-list details[open] .faq-answer { animation:soft-rise-in .25s ease both; }
+
+.gallery-card img { transition:transform .45s cubic-bezier(.2,.7,.25,1), filter .4s ease; }
+.gallery-card:hover img { transform:scale(1.025); }
+
+@media(prefers-reduced-motion:reduce) {
+    .hero-copy > *, .hero-art { animation:none; opacity:1; transform:none; }
+    .marquee-track { animation:none; }
+    .marquee-content[aria-hidden="true"] { display:none; }
+    .marquee-content { flex-wrap:wrap; justify-content:center; }
 }
