@@ -273,14 +273,41 @@ button {
     letter-spacing: .06em
 }
 
-.marquee div {
-    word-spacing: 1.2rem;
-    animation: move 25s linear infinite
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 25s linear infinite;
+    will-change: transform
 }
 
-@keyframes move {
+.marquee-content {
+    display: flex;
+    flex: none;
+    min-width: 100vw;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+    padding-right: 2rem
+}
+
+.marquee-content span,
+.marquee-content b {
+    flex: none
+}
+
+.marquee-content b {
+    font: inherit
+}
+
+@keyframes marquee-scroll {
     to {
-        transform: translateX(-30%)
+        transform: translateX(-50%)
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+        animation: none
     }
 }
 

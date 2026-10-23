@@ -24,13 +24,44 @@ document.querySelector('[data-close]')?.addEventListener('click', () => lightbox
 lightbox?.addEventListener('click', (event) => { if (event.target === lightbox) lightbox.close(); });
 
 const newsBox = document.querySelector('[data-news]');
-if (newsBox) document.querySelector('.intro')?.after(newsBox);
-if (newsBox) fetch('/api/news', { cache: 'no-store' }).then(response => response.ok ? response.json() : null).then(news => {
-  if (!news?.title || !news?.text) return;
-  newsBox.querySelector('[data-news-title]').textContent = news.title;
-  newsBox.querySelector('[data-news-text]').textContent = news.text;
+const newsLanguage = document.documentElement.lang.toLowerCase().startsWith('en') ? 'en' : 'de';
+if (newsBox) {
+  const title = newsBox.querySelector('[data-news-title]');
+  const text = newsBox.querySelector('[data-news-text]');
   const link = newsBox.querySelector('[data-news-link]');
-  let safeLink = false; try { safeLink = new URL(news.link).protocol === 'https:'; } catch {}
-  if (safeLink && news.button) { link.href = news.link; link.textContent = news.button; link.hidden = false; link.target = '_blank'; link.rel = 'noreferrer'; }
-  newsBox.hidden = false;
-}).catch(() => {});
+  const hideNews = () => {
+    newsBox.hidden = true;
+    title.textContent = '';
+    text.textContent = '';
+    link.hidden = true;
+    link.removeAttribute('href');
+    link.textContent = '';
+  };
+
+  hideNews();
+  document.querySelector('.intro')?.after(newsBox);
+  fetch(`/api/news?lang=${newsLanguage}`, { cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) throw new Error('News unavailable');
+      return response.json();
+    })
+    .then(news => {
+      if (typeof news?.title !== 'string' || typeof news?.text !== 'string' || !news.title.trim() || !news.text.trim()) return;
+      title.textContent = news.title;
+      text.textContent = news.text;
+      let safeLink = false;
+      try {
+        const url = new URL(news.link);
+        safeLink = url.protocol === 'https:' && Boolean(url.hostname);
+      } catch {}
+      if (safeLink && typeof news.button === 'string' && news.button.trim()) {
+        link.href = news.link;
+        link.textContent = news.button;
+        link.hidden = false;
+        link.target = '_blank';
+        link.rel = 'noreferrer';
+      }
+      newsBox.hidden = false;
+    })
+    .catch(hideNews);
+}

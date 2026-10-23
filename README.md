@@ -10,7 +10,7 @@ docker compose up --build
 
 Open http://localhost:8080.
 
-The site is intentionally framework-free: it is a content-led marketing page with no server-side application state. This makes the container small and simple to host through Plesk's Docker Compose support. Gallery images are currently remote placeholders and should be replaced with the studio's own optimized images before launch.
+The frontend is intentionally framework-free. A small Node service stores the optional studio news message, while the rest of the site remains static. This keeps the containers small and straightforward to host through Plesk's Docker Compose support.
 ## Studio news
 
-The bootstrap login is `studio` / `change-me-before-public-launch`. Change it immediately by setting `NEWS_USER` and `NEWS_PASSWORD` in an uncommitted `.env` file before exposing the site publicly. Shop helpers can open `/admin.html`, authenticate, and publish the headline, message, optional HTTPS link, and custom button label directly. News is stored in the private Docker volume `news-data`; the public site can only read it.
+Set `NEWS_USER` and `NEWS_PASSWORD` in an uncommitted `.env` file before exposing the site publicly. The fallback credentials in `docker-compose.yml` are intended only for local development. Studio staff can open `/admin.html`, authenticate, publish separate German and English content, add an optional HTTPS link and button label, or hide the message without deleting its content. News is stored in the private Docker volume `news-data`; the public site can only read it. Existing news data in the original flat format is migrated in memory and remains readable.
